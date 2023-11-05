@@ -3,10 +3,17 @@
     margin: 0;
     padding: 10px 20px;
     color: white;
-    background-color: #673ab7;
+    background-color: #673ab7 !important;
     max-width: 100%;
 
     h1 {
         line-height: 40px;
+        margin: 0 20px 0 0;
+    }
+
+    .nav-link {
+        color: white !important;
+        margin: 0 10px !important;
+        line-height: 40px !important;
     }
 }
