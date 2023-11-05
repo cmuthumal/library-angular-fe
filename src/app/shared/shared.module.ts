@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './components/header/header.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { ToastComponent } from './components/toast/toast.component';
-
-
+import { HttpClientModule } from '@angular/common/http';
+import { DataService } from './services/data.service';
 
 @NgModule({
   declarations: [
@@ -13,12 +13,16 @@ import { ToastComponent } from './components/toast/toast.component';
     ToastComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    HttpClientModule
   ],
   exports: [
     HeaderComponent,
     SpinnerComponent,
     ToastComponent
+  ],
+  providers: [
+    DataService
   ]
 })
 export class SharedModule { }
