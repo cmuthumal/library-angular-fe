@@ -29,4 +29,10 @@ export class AuthorsComponent {
   addAuthor() {
     console.log('addAuthor()');
   }
+
+  getAuthorInfo(row: Author) {
+    this.dataService.getAuthorById(row._id).subscribe((res: any) => {
+      console.log(res);
+    });
+  }
 }

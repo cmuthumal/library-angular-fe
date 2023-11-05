@@ -48,4 +48,10 @@ export class BooksComponent {
   addBook() {
     console.log('addBook()');
   }
+
+  getBookInfo(row: Book) {
+    this.dataService.getBookById(row._id).subscribe((res: any) => {
+      console.log(res);
+    });
+  }
 }
