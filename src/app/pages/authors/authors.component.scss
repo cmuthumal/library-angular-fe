@@ -1,0 +1,15 @@
+.container {
+    padding: 20px;
+
+    .title-row {
+        margin-bottom: 20px;
+
+        h2 {
+            display: inline;
+        }
+
+        button {
+            float: right;
+        }
+    }
+}
