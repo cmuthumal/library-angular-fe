@@ -13,4 +13,32 @@ export class DataService {
   getAllBooks(page: number, limit: number) {
     return this.http.get(this.url + '/books?page=' + page + '&limit=' + limit);
   }
+
+  getBookById(id: string) {
+    return this.http.get(this.url + '/book/' + id);
+  }
+
+  addBook() {
+    //
+  }
+
+  updateBook() {
+    //
+  }
+
+  getAllAuthors() {
+    return this.http.get(this.url + '/authors');
+  }
+
+  getAuthorById(id: string) {
+    return this.http.get(this.url + '/author/' + id);
+  }
+
+  addAuthor() {
+    //
+  }
+
+  updateAuthor() {
+    //
+  }
 }
