@@ -1,0 +1,66 @@
+<h2 mat-dialog-title *ngIf="mode == 'add'">Add Book</h2>
+<h2 mat-dialog-title *ngIf="mode == 'view' && !editableForm">Book Information</h2>
+<h2 mat-dialog-title *ngIf="mode == 'view' && editableForm">Edit Book Information</h2>
+
+<mat-dialog-content>
+    <div class="container">
+        <div class="row">
+            <form [formGroup]="form" class="padding-0">
+                <div class="col-12 padding-0">
+                    <mat-form-field class="form-input">
+                        <mat-label>Name</mat-label>
+                        <input matInput required formControlName="name" #name [readonly]="!editableForm">
+                    </mat-form-field>
+                </div>
+
+                <div class="col-12 padding-0">
+                    <mat-form-field class="form-input">
+                        <mat-label>ISBN</mat-label>
+                        <input matInput required formControlName="isbn" [readonly]="!editableForm">
+                    </mat-form-field>
+                </div>
+
+                <div class="col-12 padding-0">
+                    <mat-form-field class="form-input">
+                        <mat-label>Author</mat-label>
+                        <mat-select formControlName="author"
+                            [(value)]="this.mode == 'view' ? bookWithAuthor.author._id : book.author">
+                            <mat-option *ngFor="let author of authorsDropdownData" [value]="author.id">
+                                {{author.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div class="error-text-div">
+                    <div *ngIf="checkFormFieldValidity('name') || checkFormFieldValidity('isbn')" class="error-text">
+                        Name, ISBN and Author are required.
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <button *ngIf="(mode == 'view' && !editableForm) || mode == 'add'" mat-raised-button mat-dialog-close>
+                    Close
+                </button>
+                <button *ngIf="mode == 'view' && !editableForm" mat-raised-button color="primary"
+                    (click)="makeFormEditable(true)">
+                    Edit
+                </button>
+                <button *ngIf="mode == 'view' && editableForm" mat-raised-button (click)="resetForm()">
+                    Cancel
+                </button>
+                <button *ngIf="(mode == 'view' && editableForm) || mode == 'add'" mat-raised-button color="primary"
+                    (click)="submit()">
+                    Save
+                </button>
+            </div>
+        </div>
+    </div>
+</mat-dialog-actions>

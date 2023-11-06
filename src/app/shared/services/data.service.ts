@@ -1,44 +1,60 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Author, Book } from '../interfaces/interfaces';
+import { catchError, retry, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  private url = 'http://localhost:3000';
+  private baseURL = 'http://localhost:3000';
 
   constructor(private http: HttpClient) { }
 
   getAllBooks(page: number, limit: number) {
-    return this.http.get(this.url + '/books?page=' + page + '&limit=' + limit);
+    return this.http.get(this.baseURL + '/books?page=' + page + '&limit=' + limit);
   }
 
   getBookById(id: string) {
-    return this.http.get(this.url + '/book/' + id);
+    return this.http.get(this.baseURL + '/book/' + id);
   }
 
-  addBook() {
-    //
+  addBook(book: Book) {
+    const url = this.baseURL + "/book";
+    return this.http.post(url, book).pipe(retry(1), catchError(this.handleError));
   }
 
-  updateBook() {
-    //
+  updateBook(book: Book) {
+    const url = this.baseURL + "/book/" + book._id;
+    return this.http.put(url, book).pipe(retry(1), catchError(this.handleError));
   }
 
   getAllAuthors() {
-    return this.http.get(this.url + '/authors');
+    return this.http.get(this.baseURL + '/authors');
   }
 
   getAuthorById(id: string) {
-    return this.http.get(this.url + '/author/' + id);
+    return this.http.get(this.baseURL + '/author/' + id);
   }
 
-  addAuthor() {
-    //
+  addAuthor(author: Author) {
+    const url = this.baseURL + "/author";
+    return this.http.post(url, author).pipe(retry(1), catchError(this.handleError));
   }
 
-  updateAuthor() {
-    //
+  updateAuthor(author: Author) {
+    const url = this.baseURL + "/author/" + author._id;
+    return this.http.put(url, author).pipe(retry(1), catchError(this.handleError));
+  }
+
+  handleError(err: HttpErrorResponse) {
+    if (err.error instanceof ErrorEvent) {
+      console.error(err.error.message);
+    } else {
+      console.error('Backend error:', err.status, err.error);
+    }
+
+    return throwError('Error occured. Please try again later.');
   }
 }
