@@ -1,6 +1,7 @@
 import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { Author, Book, BookWithAuthor } from 'src/app/shared/interfaces/interfaces';
 
 @Component({
@@ -23,7 +24,8 @@ export class BookFormComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
-    private dialogRef: MatDialogRef<BookFormComponent>
+    private dialogRef: MatDialogRef<BookFormComponent>,
+    private router: Router
   ) {
     this.mode = data.mode;
     this.mode == 'add' ? this.editableForm = true : this.editableForm = false;
@@ -69,7 +71,6 @@ export class BookFormComponent {
 
   submit() {
     if (this.form.valid) {
-      // send a book object from here
       this.bookWithAuthor.name = this.form.value.name;
       this.bookWithAuthor.isbn = this.form.value.isbn;
       this.bookWithAuthor.author = this.form.value.author;
@@ -89,5 +90,10 @@ export class BookFormComponent {
 
   checkFormFieldValidity(fieldName: string) {
     return this.form.controls[fieldName].invalid && (this.form.controls[fieldName].dirty || this.form.controls[fieldName].touched);
+  }
+
+  addAuthorBtnClick() {
+    this.router.navigate(['/authors']);
+    this.dialogRef.close();
   }
 }

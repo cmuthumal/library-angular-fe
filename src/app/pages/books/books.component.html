@@ -36,7 +36,7 @@
             </div>
         </div>
 
-        <div class="col-12 guide-info-row">
+        <div class="col-12 guide-info-row" *ngIf="this.booksList && this.booksList.length > 0">
             <p>Click on a row to view more information.</p>
         </div>
     </div>

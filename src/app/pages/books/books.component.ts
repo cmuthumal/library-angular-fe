@@ -24,6 +24,7 @@ export class BooksComponent {
   pageSize: number = this.pageSizeOptions[0];
   pageIndex: number = 1;
   allAuthors: any;
+  booksList!: Book[];
 
   constructor(private dataService: DataService, public dialog: MatDialog) { }
 
@@ -46,6 +47,7 @@ export class BooksComponent {
       this.dataSource = new MatTableDataSource<Book>(res.results);
       this.length = res.length;
       this.pageIndex = res.page - 1;
+      this.booksList = res;
     });
   }
 

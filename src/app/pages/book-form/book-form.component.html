@@ -9,14 +9,14 @@
                 <div class="col-12 padding-0">
                     <mat-form-field class="form-input">
                         <mat-label>Name</mat-label>
-                        <input matInput required formControlName="name" #name [readonly]="!editableForm">
+                        <input matInput required formControlName="name" #name [readonly]="!editableForm || (allAuthors && allAuthors.length == 0)">
                     </mat-form-field>
                 </div>
 
                 <div class="col-12 padding-0">
                     <mat-form-field class="form-input">
                         <mat-label>ISBN</mat-label>
-                        <input matInput required formControlName="isbn" [readonly]="!editableForm">
+                        <input matInput required formControlName="isbn" [readonly]="!editableForm || (allAuthors && allAuthors.length == 0)">
                     </mat-form-field>
                 </div>
 
@@ -33,7 +33,11 @@
                 </div>
 
                 <div class="error-text-div">
-                    <div *ngIf="checkFormFieldValidity('name') || checkFormFieldValidity('isbn')" class="error-text">
+                    <div *ngIf="allAuthors && allAuthors.length == 0" class="error-text">
+                        You need to add an author first to add a book.
+                    </div>
+                    <div *ngIf="(allAuthors && allAuthors.length > 0) && (checkFormFieldValidity('name') || checkFormFieldValidity('isbn'))"
+                        class="error-text">
                         Name, ISBN and Author are required.
                     </div>
                 </div>
@@ -42,10 +46,15 @@
     </div>
 </mat-dialog-content>
 
-<mat-dialog-actions align="end">
+<mat-dialog-actions>
     <div class="container">
         <div class="row">
-            <div class="col-12">
+            <div class="col-5">
+                <button mat-raised-button color="primary" (click)="addAuthorBtnClick()">
+                    Add Author
+                </button>
+            </div>
+            <div class="col-7" align="end">
                 <button *ngIf="(mode == 'view' && !editableForm) || mode == 'add'" mat-raised-button mat-dialog-close>
                     Close
                 </button>
@@ -57,7 +66,7 @@
                     Cancel
                 </button>
                 <button *ngIf="(mode == 'view' && editableForm) || mode == 'add'" mat-raised-button color="primary"
-                    (click)="submit()">
+                    (click)="submit()" [disabled]="allAuthors && allAuthors.length == 0">
                     Save
                 </button>
             </div>

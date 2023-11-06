@@ -14,6 +14,7 @@ const AUTHOR_DATA: Author[] = [];
 })
 export class AuthorsComponent {
   displayedColumns: string[] = ['first_name', 'last_name'];
+  authorsList!: Author[];
   dataSource = new MatTableDataSource<Author>(AUTHOR_DATA);
 
   constructor(private dataService: DataService, public dialog: MatDialog) { }
@@ -25,6 +26,7 @@ export class AuthorsComponent {
   getAllAuthors() {
     this.dataService.getAllAuthors().subscribe((res: any) => {
       this.dataSource = new MatTableDataSource<Author>(res);
+      this.authorsList = res;
     });
   }
 

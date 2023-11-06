@@ -21,7 +21,8 @@
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openViewAuthorModal(row)"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openViewAuthorModal(row)">
+                    </tr>
                     <tr class="mat-row no-data-info-row" *matNoDataRow>
                         <td class="mat-cell text-center" [attr.colspan]="displayedColumns.length">
                             No data available.
@@ -31,7 +32,7 @@
             </div>
         </div>
 
-        <div class="col-12 guide-info-row">
+        <div class="col-12 guide-info-row" *ngIf="this.authorsList && this.authorsList.length > 0">
             <p>Click on a row to view information.</p>
         </div>
     </div>
