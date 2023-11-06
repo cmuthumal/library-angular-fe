@@ -27,8 +27,17 @@
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="getBookInfo(row)"></tr>
+                    <tr class="mat-row no-data-info-row" *matNoDataRow>
+                        <td class="mat-cell text-center" [attr.colspan]="displayedColumns.length">
+                            No data available.
+                        </td>
+                    </tr>
                 </table>
             </div>
+        </div>
+
+        <div class="col-12 guide-info-row">
+            <p>Click on a row to view more information.</p>
         </div>
     </div>
 </div>

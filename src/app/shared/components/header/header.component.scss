@@ -1,10 +1,12 @@
-.container {
-    height: 60px;
+.navbar {
     margin: 0;
     padding: 10px 20px;
-    color: white;
     background-color: #673ab7 !important;
     max-width: 100%;
+
+    .navbar-brand {
+        color: white;
+    }
 
     h1 {
         line-height: 40px;
